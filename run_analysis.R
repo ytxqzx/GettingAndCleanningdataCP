@@ -1,4 +1,4 @@
-setwd("E:/xi/Coursera/Getting and cleaning data/Course Project/UCI HAR Dataset")
+
 featurenames <- read.table("features.txt")
 pl1 <- c("test", "train")
 pl2 <- "Inertial Signals"
