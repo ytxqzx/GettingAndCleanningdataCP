@@ -1,7 +1,9 @@
 
 featurenames <- read.table("features.txt")
+Alable <- read.table("activity_labels.txt")
+
 pl1 <- c("test", "train")
-pl2 <- "Inertial Signals"
+
 fn1 <- list.files(file.path(getwd(),pl1[1]))
 fn2 <- list.files(file.path(getwd(),pl1[2]))
 
@@ -15,14 +17,21 @@ TimeFre <- rbind(read.table(file.path(getwd(),pl1[1],fn1[3]), sep =""),
                  read.table(file.path(getwd(),pl1[2], fn2[3]), sep =""))
 colnames(TimeFre) <- featurenames[,2]
 
-fns1 <- list.files(file.path(getwd(),pl1[1],pl2))
-fnr1 <- list.files(file.path(getwd(),pl1[2],pl2))
+
 data <- cbind (id,lable,TimeFre)
+data1 <- data
+data1[,2] <- factor(data1[,2])
+levels(data1[,2])<-Alable[,2]
+write.table(data1, file = "merged_data.txt",row.name=FALSE)
+
+
+
 
 x <- c(1:6,41:46,81:86,121:126,161:166,201:202,214:215,227:228,240:241,253:254,
        266:271,345:350,424:429,503:504,516:517,529:530,542,543)
 x <-c(1:2,x+2)
 subdata <- data[,x]
+
 
 cdata <- data.frame(matrix(vector(), 180, length(subdata[1,]), dimnames=list(c(), colnames(subdata))))
 cdata[,1] <- rep(1:30,each =6)
